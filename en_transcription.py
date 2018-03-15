@@ -27,9 +27,13 @@ def main():
         word = raw_input('> ').strip()
         response = requests.get('http://wooordhunt.ru/word/{}'.format(word))
         root = fromstring(response.text)
-        t = root.cssselect('span.transcription')[0].text
-        tr = root.cssselect('span.t_inline_en')[0].text
-        print('{} - {}'.format(t, tr))
+        try:
+            t = root.cssselect('span.transcription')[0].text
+            t = t.strip().replace("ˈ", "'").replace('ː', ':')
+            translate = root.cssselect('span.t_inline_en')[0].text
+            print('{} - {}'.format(t, translate))
+        except IndexError:
+            pass
 
 
 if __name__ == '__main__':
