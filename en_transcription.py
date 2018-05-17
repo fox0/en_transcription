@@ -1,14 +1,10 @@
+#!/usr/bin/env python3
 # coding: utf-8
-from __future__ import print_function, unicode_literals
 import re
 import sys
 import requests
 from lxml.html import fromstring
 
-try:
-    raw_input
-except NameError:
-    raw_input = input  # py3
 
 re_split = re.compile(r'\s+')
 
@@ -27,7 +23,7 @@ def set_hook():
 
 def main():
     while True:
-        words = raw_input('> ').strip()
+        words = input('> ').strip()
         for word in re_split.split(words):
             response = requests.get('http://wooordhunt.ru/word/{}'.format(word))
             root = fromstring(response.text)
